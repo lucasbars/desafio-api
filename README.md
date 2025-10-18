@@ -102,11 +102,11 @@ app/
  ├── Http/
  │   └── Controllers/
  │       └── MunicipioController.php
- └── Services/
-     ├── MunicipioService.php
-     ├── BrasilApiProvider.php
-     ├── IbgeProvider.php
-     └── MunicipioProviderInterface.php
+ ├── Services/
+ │   ├── MunicipioService.php
+ │   ├── BrasilApiProvider.php
+ │   ├── IbgeProvider.php
+ │   └── MunicipioProviderInterface.php
  └── Exceptions/
      └── ProviderException.php
 
@@ -131,6 +131,6 @@ tests/
 
 ## 📚 Licença
 
-Este projeto é open-source sob a licença [MIT](LICENSE).
+Este projeto é open-source sob a licença [MIT](LICENSE.md).
 
 ---
