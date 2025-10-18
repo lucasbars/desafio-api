@@ -6,13 +6,29 @@ use Tests\TestCase;
 
 class MunicipioApiTest extends TestCase
 {
-  public function testApiMunicipios()
+  /**
+   * Testa o fluxo completo: Controller -> Service -> Provider -> API externa
+   */
+  public function testApiMunicipiosReal()
   {
-    $response = $this->getJson('/api/municipios/RS');
+    $uf = 'CE';
+    $response = $this->getJson("/api/municipios/{$uf}");
 
     $response->assertStatus(200);
-    $response->assertJsonStructure([
-      ['name', 'ibge_code']
-    ]);
+    $response->assertJsonStructure([['name', 'ibge_code']]);
+    $this->assertNotEmpty($response->json(), 'O array de municípios não pode estar vazio');
+  }
+
+  /**
+   * Testa um estado que provavelmente não existe
+   * para verificar tratamento de erro
+   */
+  public function testApiMunicipiosInexistente()
+  {
+    $uf = 'XX';
+    $response = $this->getJson("/api/municipios/{$uf}");
+
+    $response->assertStatus(500);
+    $response->assertJsonStructure(['error', 'details']);
   }
 }
