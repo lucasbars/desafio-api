@@ -40,8 +40,8 @@ API desenvolvida em **Laravel** para listar municípios de uma determinada UF, c
 
  3. Defina o provider desejado em .env:
    ```bash
-   MUNICIPIOS_PROVIDER=brasilapi
+    MUNICIPIOS_PROVIDER=brasilapi
 
-4. Inicie o servidor local:
+  4. Inicie o servidor local:
   ```bash
    php artisan serve
