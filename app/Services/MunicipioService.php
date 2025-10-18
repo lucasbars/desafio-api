@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
+use App\Exceptions\ProviderException;
 use Exception;
 
 class MunicipioService
@@ -29,20 +31,26 @@ class MunicipioService
 
   public function listarMunicipios(string $uf): array
   {
-    try {
-      $municipios = $this->getFromProvider($this->provider, $uf);
+    $uf = strtoupper($uf);
+    $cacheKey = "municipios_{$uf}";
 
-      if (empty($municipios)) {
-        $municipios = $this->getFromProvider($this->fallbackProvider, $uf);
+    // Cache por 24 horas
+    return Cache::remember($cacheKey, 60 * 60 * 24, function () use ($uf) {
+      try {
+        $municipios = $this->getFromProvider($this->provider, $uf);
+
+        if (empty($municipios)) {
+          $municipios = $this->getFromProvider($this->fallbackProvider, $uf);
+        }
+
+        return $municipios;
+      } catch (Exception $e) {
+        return [
+          'error' => 'Nao foi possivel buscar os municipios. Tente novamente mais tarde.',
+          'details' => $e->getMessage()
+        ];
       }
-
-      return $municipios;
-    } catch (Exception $e) {
-      return [
-        'error' => 'Não foi possível buscar os municípios. Tente novamente mais tarde.',
-        'details' => $e->getMessage()
-      ];
-    }
+    });
   }
 
   private function getFromProvider(MunicipioProviderInterface $provider, string $uf): array
@@ -50,7 +58,8 @@ class MunicipioService
     try {
       return $provider->getMunicipios($uf);
     } catch (Exception $e) {
-      throw new Exception("Falha no provider " . get_class($provider) . ": " . $e->getMessage());
+      throw new ProviderException(get_class($provider), $e->getMessage());
+      // throw new Exception("Falha no provider " . get_class($provider) . ": " . $e->getMessage());
     }
   }
 }

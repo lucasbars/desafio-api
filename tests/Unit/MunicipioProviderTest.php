@@ -5,9 +5,16 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Services\BrasilApiProvider;
 use App\Services\IbgeProvider;
+use Illuminate\Support\Facades\Cache;
 
 class MunicipioProviderTest extends TestCase
 {
+
+  protected function setUp(): void
+  {
+    parent::setUp();
+    Cache::flush(); // limpa cache antes de cada teste
+  }
   /**
    * Testa se o BrasilApiProvider retorna array correto com API real
    */

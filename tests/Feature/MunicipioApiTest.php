@@ -3,9 +3,20 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use Illuminate\Support\Facades\Cache;
 
 class MunicipioApiTest extends TestCase
 {
+
+  /**
+   * Limpa o cache antes de cada teste
+   */
+  protected function setUp(): void
+  {
+    parent::setUp();
+    Cache::flush();
+  }
+
   /**
    * Testa o fluxo completo: Controller -> Service -> Provider -> API externa
    */
