@@ -8,9 +8,8 @@ class BrasilApiProvider implements MunicipioProviderInterface
 {
   public function getMunicipios(string $uf): array
   {
-    $response = Http::get("https://brasilapi.com.br/api/ibge/municipios/v1/{$uf}");
-
-    if ($response->failed()) return [];
+    $response = Http::timeout(10)->get("https://brasilapi.com.br/api/ibge/municipios/v1/{$uf}");
+    $response->throw();
 
     return collect($response->json())->map(function ($item) {
       return [

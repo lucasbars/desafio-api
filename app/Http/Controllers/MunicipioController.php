@@ -17,6 +17,11 @@ class MunicipioController extends Controller
   public function listar(Request $request, string $uf)
   {
     $municipios = $this->service->listarMunicipios($uf);
+
+    if (isset($municipios['error'])) {
+      return response()->json($municipios, 500);
+    }
+
     return response()->json($municipios);
   }
 }

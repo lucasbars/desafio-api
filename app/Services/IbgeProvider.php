@@ -8,10 +8,9 @@ class IbgeProvider implements MunicipioProviderInterface
 {
   public function getMunicipios(string $uf): array
   {
-    $uf = strtoupper($uf);
-    $response = Http::get("https://servicodados.ibge.gov.br/api/v1/localidades/estados/{$uf}/municipios");
-
-    if ($response->failed()) return [];
+    $uf = strtolower($uf);
+    $response = Http::timeout(10)->get("https://servicodados.ibge.gov.br/api/v1/localidades/estados/{$uf}/municipios");
+    $response->throw();
 
     return collect($response->json())->map(function ($item) {
       return [
