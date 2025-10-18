@@ -183,98 +183,108 @@
   </div>
 
   <!-- Bootstrap JS -->
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
     const states = {
-      'AC': 'Acre',
-      'AL': 'Alagoas',
-      'AP': 'Amapá',
-      'AM': 'Amazonas',
-      'BA': 'Bahia',
-      'CE': 'Ceará',
-      'DF': 'Distrito Federal',
-      'ES': 'Espírito Santo',
-      'GO': 'Goiás',
-      'MA': 'Maranhão',
-      'MT': 'Mato Grosso',
-      'MS': 'Mato Grosso do Sul',
-      'MG': 'Minas Gerais',
-      'PA': 'Pará',
-      'PB': 'Paraíba',
-      'PR': 'Paraná',
-      'PE': 'Pernambuco',
-      'PI': 'Piauí',
-      'RJ': 'Rio de Janeiro',
-      'RN': 'Rio Grande do Norte',
-      'RS': 'Rio Grande do Sul',
-      'RO': 'Rondônia',
-      'RR': 'Roraima',
-      'SC': 'Santa Catarina',
-      'SP': 'São Paulo',
-      'SE': 'Sergipe',
-      'TO': 'Tocantins'
+      AC: "Acre",
+      AL: "Alagoas",
+      AP: "Amapá",
+      AM: "Amazonas",
+      BA: "Bahia",
+      CE: "Ceará",
+      DF: "Distrito Federal",
+      ES: "Espírito Santo",
+      GO: "Goiás",
+      MA: "Maranhão",
+      MT: "Mato Grosso",
+      MS: "Mato Grosso do Sul",
+      MG: "Minas Gerais",
+      PA: "Pará",
+      PB: "Paraíba",
+      PR: "Paraná",
+      PE: "Pernambuco",
+      PI: "Piauí",
+      RJ: "Rio de Janeiro",
+      RN: "Rio Grande do Norte",
+      RS: "Rio Grande do Sul",
+      RO: "Rondônia",
+      RR: "Roraima",
+      SC: "Santa Catarina",
+      SP: "São Paulo",
+      SE: "Sergipe",
+      TO: "Tocantins",
     };
 
     async function searchMunicipalities() {
-      const ufSelect = document.getElementById('ufSelect');
+      const ufSelect = document.getElementById("ufSelect");
       const uf = ufSelect.value;
-      const searchBtn = document.getElementById('searchBtn');
-      const btnText = document.getElementById('btnText');
-      const messageContainer = document.getElementById('messageContainer');
-      const resultsContainer = document.getElementById('resultsContainer');
+      const searchBtn = document.getElementById("searchBtn");
+      const btnText = document.getElementById("btnText");
+      const messageContainer = document.getElementById("messageContainer");
+      const resultsContainer = document.getElementById("resultsContainer");
 
       if (!uf) {
-        showMessage('Por favor, selecione uma UF', 'danger');
+        showMessage("Por favor, selecione uma UF", "danger");
         return;
       }
 
       // Limpar mensagens e resultados
-      messageContainer.style.display = 'none';
-      resultsContainer.style.display = 'none';
+      messageContainer.style.display = "none";
+      resultsContainer.style.display = "none";
 
       // Loading
       searchBtn.disabled = true;
-      btnText.innerHTML = '<span class="spinner-custom d-inline-block me-2"></span>Buscando...';
+      btnText.innerHTML =
+        '<span class="spinner-custom d-inline-block me-2"></span>Buscando...';
 
       try {
-        const response = await fetch(`http://localhost:8000/api/municipios/${uf}`);
+        const response = await fetch(
+          `http://localhost:8000/api/municipios/${uf}`
+        );
         const data = await response.json();
 
         if (Array.isArray(data)) {
           displayResults(data, uf);
-          showMessage(`Encontrados ${data.length} municípios em ${states[uf]}`, 'success');
+          showMessage(
+            `Encontrados ${data.length} municípios em ${states[uf]}`,
+            "success"
+          );
         } else if (data.error) {
           throw new Error(data.error);
         } else {
-          throw new Error('Erro ao buscar municípios');
+          throw new Error("Erro ao buscar municípios");
         }
-
       } catch (error) {
-        showMessage(error.message || 'Erro ao conectar com o servidor', 'danger');
-        resultsContainer.style.display = 'none';
+        showMessage(
+          error.message || "Erro ao conectar com o servidor",
+          "danger"
+        );
+        resultsContainer.style.display = "none";
       } finally {
         searchBtn.disabled = false;
-        btnText.innerHTML = 'Buscar Municípios';
+        btnText.innerHTML = "Buscar Municípios";
       }
     }
 
     function showMessage(message, type) {
-      const messageContainer = document.getElementById('messageContainer');
-      const icon = type === 'success' ? 'check-circle-fill' : 'exclamation-triangle-fill';
+      const messageContainer = document.getElementById("messageContainer");
+      const icon =
+        type === "success" ? "check-circle-fill" : "exclamation-triangle-fill";
 
       messageContainer.innerHTML = `
       <div class="alert alert-${type} alert-custom mt-3 mb-0" role="alert">
         <i class="bi bi-${icon} me-2"></i>
-        <strong>${type === 'success' ? 'Sucesso!' : 'Erro'}</strong>
+        <strong>${type === "success" ? "Sucesso!" : "Erro"}</strong>
         <p class="mb-0 mt-1">${message}</p>
       </div>
     `;
-      messageContainer.style.display = 'block';
+      messageContainer.style.display = "block";
     }
 
     function displayResults(municipalities, uf) {
-      const resultsContainer = document.getElementById('resultsContainer');
+      const resultsContainer = document.getElementById("resultsContainer");
 
       if (municipalities.length === 0) {
         resultsContainer.innerHTML = `
@@ -289,7 +299,7 @@
         </div>
       `;
       } else {
-        let tableRows = '';
+        let tableRows = "";
         municipalities.forEach((municipality, index) => {
           tableRows += `
           <tr>
@@ -330,17 +340,16 @@
       `;
       }
 
-      resultsContainer.style.display = 'block';
+      resultsContainer.style.display = "block";
     }
 
     // Permitir busca com Enter
-    document.getElementById('ufSelect').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
+    document.getElementById("ufSelect").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
         searchMunicipalities();
       }
     });
   </script>
-
 </body>
 
 </html>
