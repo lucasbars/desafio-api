@@ -43,5 +43,5 @@ API desenvolvida em **Laravel** para listar municípios de uma determinada UF, c
    MUNICIPIOS_PROVIDER=brasilapi
 
 4. Inicie o servidor local:
- ```bash
+  ```bash
    php artisan serve
