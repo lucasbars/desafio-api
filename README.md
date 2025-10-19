@@ -8,8 +8,8 @@ API RESTful desenvolvida em Laravel para consulta de municípios brasileiros por
 
 1. **Clone o repositório:**
    ```bash
-   git clone https://github.com/seu-usuario/api-municipios.git
-   cd api-municipios
+   git clone https://github.com/lucasbars/desafio-api.git
+   cd desafio-api
    ```
 
 2. **Instale as dependências:**
@@ -26,6 +26,7 @@ API RESTful desenvolvida em Laravel para consulta de municípios brasileiros por
 4. **Inicie o servidor de desenvolvimento:**
    ```bash
    php artisan serve
+   npm run dev
    ```
 
 ---
@@ -110,11 +111,20 @@ app/
  └── Exceptions/
      └── ProviderException.php
 
+resources/
+ ├── css/
+ │   └── index.css
+ ├── js/
+ │   └── index.js
+ └── views/
+     └── index.blade.php
+
 tests/
  ├── Feature/
  │   └── MunicipioApiTest.php
  └── Unit/
      └── MunicipioProviderTest.php
+
 
 ```
 
@@ -122,8 +132,8 @@ tests/
 
 ## 🧩 Tecnologias
 
-- **PHP 8.2+**
-- **Laravel 11**
+- **PHP 8.1.4+**
+- **Laravel 10.49.1**
 - **Cache nativo (via `Illuminate\Support\Facades\Cache`)**
 - **Testes com PHPUnit**
 
