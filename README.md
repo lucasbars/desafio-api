@@ -2,6 +2,8 @@
    🌎 API de Municípios
 </h1>
 
+---
+
 <p align="center">
   <img src=".github/home.png" alt="Screenshot do sistema" width="800">
 </p>
