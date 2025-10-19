@@ -1,4 +1,10 @@
-# 🌎 API de Municípios
+<h1 align="center">
+   🌎 API de Municípios
+</h1>
+
+<p align="center">
+  <img src=".github/home.png" alt="Screenshot do sistema" width="800">
+</p>
 
 API RESTful desenvolvida em Laravel para consulta de municípios brasileiros por UF, com suporte a múltiplos providers (BrasilAPI e IBGE), cache e fallback automático.
 
