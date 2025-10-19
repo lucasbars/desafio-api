@@ -15,7 +15,6 @@
   <!-- datatables -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
-
   <style>
     body {
       background: linear-gradient(135deg, #e3f2fd 0%, #e8eaf6 50%, #f3e5f5 100%);
@@ -29,7 +28,7 @@
 
     .header-section {
       text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
     }
 
     .header-icon {
@@ -186,9 +185,14 @@
     </div>
   </div>
 
-  <!-- Bootstrap JS -->
+  <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- datatables JS -->
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/2.3.4/js/dataTables.bootstrap5.js"></script>
+
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     const states = {
@@ -327,8 +331,7 @@
             </table>
           </div>
         </div>
-      </div>
-    `;
+      </div>`;
 
       resultsContainer.style.display = "block";
 
@@ -356,6 +359,7 @@
         ],
         pageLength: 10,
         responsive: true,
+        ordering: false,
         language: {
           url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json"
         }
@@ -363,13 +367,11 @@
     }
 
     // Permitir busca com Enter
-    document
-      .getElementById("ufSelect")
-      .addEventListener("keypress", function(e) {
-        if (e.key === "Enter") {
-          searchMunicipalities();
-        }
-      });
+    document.getElementById("ufSelect").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        searchMunicipalities();
+      }
+    });
   </script>
 </body>
 
